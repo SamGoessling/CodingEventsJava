@@ -1,30 +1,30 @@
 package org.launchcode.codingevents.models;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
 import jakarta.validation.constraints.Size;
 
-import java.util.Objects;
-
 /**
- * Created by Chris Bay
+ * Represents a category for events in the system. Inherits ID and common entity behavior from AbstractEntity.
  */
 @Entity
-public class EventCategory {
+public class EventCategory extends AbstractEntity {
 
-    @Id
-    @GeneratedValue
-    private int id;
-
-    @Size(min=3, message="Name must be at least 3 characters long")
+    @Size(min = 3, message = "Name must be at least 3 characters long")
     private String name;
 
-    public EventCategory(@Size(min = 3, message = "Name must be at least 3 characters long") String name) {
+    /**
+     * Default constructor required by JPA. Do not use to create instances.
+     */
+    public EventCategory() {}
+
+    /**
+     * Creates a new EventCategory with the specified name.
+     *
+     * @param name the name of the category, must be at least 3 characters long
+     */
+    public EventCategory(String name) {
         this.name = name;
     }
-
-    public EventCategory() {}
 
     public String getName() {
         return name;
@@ -34,26 +34,10 @@ public class EventCategory {
         this.name = name;
     }
 
-    public int getId() {
-        return id;
-    }
-
     @Override
     public String toString() {
-        return name;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        EventCategory that = (EventCategory) o;
-        return id == that.id;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
+        return "EventCategory{" +
+                "name='" + name + '\'' +
+                '}';
     }
 }
-
